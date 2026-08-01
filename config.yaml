@@ -1,0 +1,32 @@
+server:
+  bind: "0.0.0.0:8080"
+
+redis:
+  url: "redis://127.0.0.1/"
+
+auth:
+  jwt_secret: "secret123"
+  api_keys:
+    - "local-api-key"
+
+rate_limit:
+  enabled: true
+  requests: 100
+  window_secs: 60
+
+cache:
+  enabled: false
+  ttl_secs: 60
+
+prometheus:
+  enabled: true
+
+tracing:
+  otlp_endpoint: "http://localhost:4317"
+
+routes:
+  - path: "/*"
+    upstream: "http://httpbin.org"
+    jwt_required: false
+    api_key_required: false
+    cache_ttl_secs: 0
